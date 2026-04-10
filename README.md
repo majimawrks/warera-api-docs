@@ -39,25 +39,9 @@ Found an undocumented endpoint or a field that's wrong? PRs are welcome on [GitH
 
 ## Support
 
-<div class="support-block">
-  <p class="support-desc">If this documentation has been useful to you, consider supporting its development.</p>
-  <div class="support-table">
-    <div class="support-row">
-      <span class="support-label">SAWERIA</span>
-      <a class="support-value support-link" href="https://saweria.co/gdsst" target="_blank" rel="noopener">
-        saweria.co/gdsst
-        <svg class="support-ext-icon" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </div>
-    <div class="support-row">
-      <span class="support-label">BITCOIN</span>
-      <span class="support-value support-addr" data-addr="bc1qp6fh0a00rezpnsec620mcp7myclk74q3grm8mg">bc1qp6fh0a00rezpnsec620mcp7myclk74q3grm8mg</span>
-      <button class="support-copy" onclick="supportCopy(this)" data-addr="bc1qp6fh0a00rezpnsec620mcp7myclk74q3grm8mg">COPY</button>
-    </div>
-    <div class="support-row">
-      <span class="support-label">ETHEREUM<br><span class="support-sublabel">MAINNET</span></span>
-      <span class="support-value support-addr">0x94c710f78E7086Cb6a75C6cF9362Cb95dF938b7E</span>
-      <button class="support-copy" onclick="supportCopy(this)" data-addr="0x94c710f78E7086Cb6a75C6cF9362Cb95dF938b7E">COPY</button>
-    </div>
-  </div>
-</div>
+If this documentation has been useful to you, consider supporting its development.
+| platform | address |
+|---|---|
+| saweria | saweria.co/gdsst |
+| bitcoin | bc1qp6fh0a00rezpnsec620mcp7myclk74q3grm8mg |
+| ethereum (mainnet) | 0x94c710f78E7086Cb6a75C6cF9362Cb95dF938b7E |
