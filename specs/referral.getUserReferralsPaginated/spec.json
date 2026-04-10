@@ -1,0 +1,31 @@
+{
+  "endpoint": "referral.getUserReferralsPaginated",
+  "namespace": "referral",
+  "method": "getUserReferralsPaginated",
+  "auth": "required",
+  "description": "Returns a paginated list of users referred by a given user.",
+  "input": {
+    "userId": {
+      "type": "string",
+      "required": true,
+      "description": "Unique identifier of the user whose referrals to retrieve."
+    },
+    "limit": {
+      "type": "number",
+      "required": false,
+      "description": "Maximum number of referral entries to return.",
+      "default": 50
+    }
+  },
+  "output": {
+    "description": "Paginated referral list. Response shape varies; check items, referrals, data, or users key.",
+    "fields": {
+      "items": "array — referral entries (present in some versions)",
+      "nextCursor": "string|null — cursor for the next page",
+      "referrals": "array — referral entries (alternative key name)",
+      "data": "array — referral entries (alternative key name)",
+      "users": "array — referral entries (alternative key name)"
+    }
+  },
+  "notes": "Requires jwt cookie authentication (not api_key). Response shape may vary by server version — check items, referrals, data, or users key for the entry list."
+}

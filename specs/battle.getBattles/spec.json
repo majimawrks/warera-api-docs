@@ -1,0 +1,31 @@
+{
+  "endpoint": "battle.getBattles",
+  "namespace": "battle",
+  "method": "getBattles",
+  "auth": "optional",
+  "description": "Returns a list of battles optionally filtered by active status and country.",
+  "input": {
+    "isActive": {
+      "type": "boolean",
+      "required": false,
+      "description": "Filter by active or inactive battles."
+    },
+    "limit": {
+      "type": "number",
+      "required": false,
+      "description": "Maximum number of battles to return."
+    },
+    "countryId": {
+      "type": "string",
+      "required": false,
+      "description": "Filter battles involving a specific country as attacker or defender."
+    }
+  },
+  "output": {
+    "description": "List of battle summary objects.",
+    "fields": {
+      "items": "array — list of battle summary objects, each with _id and associated metadata"
+    }
+  },
+  "notes": "Each item in the items array is a battle summary with at minimum _id, isActive, and participant metadata. Use battle.getById for full detail on a specific battle."
+}

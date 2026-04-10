@@ -1,0 +1,15 @@
+{
+  "endpoint": "region.getRegionsObject",
+  "namespace": "region",
+  "method": "getRegionsObject",
+  "auth": "optional",
+  "description": "Returns all regions as a map keyed by regionId, including production bonuses and country assignments.",
+  "input": {},
+  "output": {
+    "description": "Object keyed by regionId mapping to region data including material production bonuses and country assignment.",
+    "fields": {
+      "<regionId>": "object — region data with productionBonuses and country fields"
+    }
+  },
+  "notes": "Useful for bulk access to region data without individual lookups. Each value has at minimum country and productionBonuses fields."
+}

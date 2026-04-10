@@ -1,0 +1,39 @@
+{
+  "endpoint": "battleRanking.getRanking",
+  "namespace": "battleRanking",
+  "method": "getRanking",
+  "auth": "optional",
+  "description": "Returns a ranked list of users by damage or points for one side of a battle.",
+  "input": {
+    "battleId": {
+      "type": "string",
+      "required": true,
+      "description": "Unique identifier of the battle."
+    },
+    "dataType": {
+      "type": "string",
+      "required": false,
+      "description": "Metric to rank by.",
+      "enum": ["damage", "points"]
+    },
+    "type": {
+      "type": "string",
+      "required": false,
+      "description": "Entity type to rank.",
+      "enum": ["user"]
+    },
+    "side": {
+      "type": "string",
+      "required": false,
+      "description": "Which side of the battle to retrieve rankings for.",
+      "enum": ["attacker", "defender"]
+    }
+  },
+  "output": {
+    "description": "Ranked list of users with their metric value.",
+    "fields": {
+      "rankings": "array — list of ranking entries, each with user (userId) and value (number)"
+    }
+  },
+  "notes": "Rankings are ordered descending by value. Currently only type=user is supported."
+}

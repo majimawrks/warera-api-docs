@@ -1,0 +1,31 @@
+{
+  "endpoint": "battle.getById",
+  "namespace": "battle",
+  "method": "getById",
+  "auth": "optional",
+  "description": "Returns full battle details including round history and participant data by battle ID.",
+  "input": {
+    "battleId": {
+      "type": "string",
+      "required": true,
+      "description": "Unique identifier of the battle."
+    }
+  },
+  "output": {
+    "description": "Full battle object with participant details, round history, and region information.",
+    "fields": {
+      "_id": "string — battle identifier",
+      "type": "string — battle type",
+      "isBigBattle": "boolean — whether this is a big battle",
+      "isActive": "boolean — whether the battle is currently active",
+      "war": "string — associated war ID",
+      "roundsToWin": "number — rounds needed to win the battle",
+      "rounds": "array — list of round IDs",
+      "roundsHistory": "array — sequence of 'attacker' or 'defender' indicating round winners",
+      "attacker": "object — attacker side data (country, countryOrders, muOrders, moneyPer1kDamages, moneyPool)",
+      "defender": "object — defender side data (country, countryOrders, muOrders, moneyPer1kDamages, moneyPool)",
+      "region": "string — regionId being contested"
+    }
+  },
+  "notes": "The attacker and defender objects each contain: country (countryId), countryOrders (number), muOrders (number), moneyPer1kDamages (number), moneyPool (number)."
+}

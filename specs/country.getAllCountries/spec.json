@@ -1,0 +1,17 @@
+{
+  "endpoint": "country.getAllCountries",
+  "namespace": "country",
+  "method": "getAllCountries",
+  "auth": "none",
+  "description": "Returns an array of all countries and their basic metadata.",
+  "input": {},
+  "output": {
+    "description": "Array of country objects with identifier and name fields.",
+    "fields": {
+      "[]._id": "string — country identifier",
+      "[].name": "string — country name",
+      "[].meta": "object — additional country metadata"
+    }
+  },
+  "notes": "No authentication is required. Returns all countries in the game world."
+}

@@ -1,0 +1,23 @@
+{
+  "endpoint": "search.searchAnything",
+  "namespace": "search",
+  "method": "searchAnything",
+  "auth": "optional",
+  "description": "Searches across all entity types and returns arrays of matched IDs per type.",
+  "input": {
+    "searchText": {
+      "type": "string",
+      "required": true,
+      "description": "The search query string."
+    }
+  },
+  "output": {
+    "description": "Arrays of matched entity IDs grouped by entity type.",
+    "fields": {
+      "userIds": "array — IDs of matching users",
+      "muIds": "array — IDs of matching military units",
+      "countryIds": "array — IDs of matching countries"
+    }
+  },
+  "notes": "Origin and Referer headers set to app.warera.io are required for some result types. Authentication may expand the result set."
+}

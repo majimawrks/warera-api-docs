@@ -1,0 +1,25 @@
+{
+  "endpoint": "party.getById",
+  "namespace": "party",
+  "method": "getById",
+  "auth": "optional",
+  "description": "Returns a political party object by its ID.",
+  "input": {
+    "partyId": {
+      "type": "string",
+      "required": true,
+      "description": "Unique identifier of the political party."
+    }
+  },
+  "output": {
+    "description": "Political party object with identity, country, and membership data.",
+    "fields": {
+      "_id": "string — party identifier",
+      "name": "string — party name",
+      "country": "string — countryId the party belongs to",
+      "ethicsBonus": "number — ethics bonus provided by the party",
+      "members": "object — member count and related membership info"
+    }
+  },
+  "notes": "Authentication may expose additional internal fields."
+}

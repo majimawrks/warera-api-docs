@@ -1,0 +1,21 @@
+{
+  "endpoint": "referral.getUserReferrals",
+  "namespace": "referral",
+  "method": "getUserReferrals",
+  "auth": "required",
+  "description": "Returns the non-paginated list of users referred by a given user.",
+  "input": {
+    "userId": {
+      "type": "string",
+      "required": true,
+      "description": "Unique identifier of the user whose referrals to retrieve."
+    }
+  },
+  "output": {
+    "description": "Array of referred user profile objects.",
+    "fields": {
+      "[]": "object — resolved user profile for each referred user"
+    }
+  },
+  "notes": "Requires jwt cookie authentication. May return an array or object depending on server version. Use getUserReferralsPaginated for large referral lists."
+}

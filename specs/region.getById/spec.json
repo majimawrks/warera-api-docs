@@ -1,0 +1,28 @@
+{
+  "endpoint": "region.getById",
+  "namespace": "region",
+  "method": "getById",
+  "auth": "optional",
+  "description": "Returns a region object by its ID, including ownership, production, and development data.",
+  "input": {
+    "regionId": {
+      "type": "string",
+      "required": true,
+      "description": "Unique identifier of the region."
+    }
+  },
+  "output": {
+    "description": "Region object with ownership, production bonuses, deposits, and development info.",
+    "fields": {
+      "_id": "string — region identifier",
+      "name": "string — region name",
+      "country": "string — countryId of the current owner",
+      "productionBonuses": "object — production bonus values by resource type",
+      "deposits": "object — deposit type and amount info",
+      "occupationStatus": "object — occupation state if region is under occupation",
+      "developmentLevel": "number — current development level",
+      "taxRate": "number — current tax rate for the region"
+    }
+  },
+  "notes": "A region may be occupied by a country different from its original owner; check occupationStatus for details."
+}

@@ -1,0 +1,22 @@
+{
+  "endpoint": "tradingOrder.getTopOrders",
+  "namespace": "tradingOrder",
+  "method": "getTopOrders",
+  "auth": "optional",
+  "description": "Returns the top buy and sell orders for a specific tradeable item.",
+  "input": {
+    "itemCode": {
+      "type": "string",
+      "required": true,
+      "description": "Item code to retrieve orders for, e.g. grain, oil, iron."
+    }
+  },
+  "output": {
+    "description": "Top buy and sell orders for the specified item.",
+    "fields": {
+      "buy": "array — top buy orders, each with price, quantity, and userId",
+      "sell": "array — top sell orders, each with price, quantity, and userId"
+    }
+  },
+  "notes": "Buy orders are sorted descending by price (best bid first). Sell orders are sorted ascending by price (lowest ask first). Order object fields: price (number), quantity (number), userId (string)."
+}

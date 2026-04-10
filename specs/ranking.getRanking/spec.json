@@ -1,0 +1,27 @@
+{
+  "endpoint": "ranking.getRanking",
+  "namespace": "ranking",
+  "method": "getRanking",
+  "auth": "optional",
+  "description": "Returns the global leaderboard for users, countries, or military units.",
+  "input": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "description": "Entity type to rank.",
+      "enum": ["user", "country", "mu"]
+    },
+    "limit": {
+      "type": "number",
+      "required": false,
+      "description": "Maximum number of entries to return."
+    }
+  },
+  "output": {
+    "description": "Ranked list of entities with their scores.",
+    "fields": {
+      "rankings": "array — list of ranking entries, each with id, name, value, and rank"
+    }
+  },
+  "notes": "Ranking entry fields: id (entity identifier), name (display name), value (score), rank (1-indexed position)."
+}

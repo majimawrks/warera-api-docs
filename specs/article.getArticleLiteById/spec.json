@@ -1,0 +1,30 @@
+{
+  "endpoint": "article.getArticleLiteById",
+  "namespace": "article",
+  "method": "getArticleLiteById",
+  "auth": "optional",
+  "description": "Returns the full raw article object including all internal metadata and vote data by article ID.",
+  "input": {
+    "articleId": {
+      "type": "string",
+      "required": true,
+      "description": "Unique identifier of the article."
+    }
+  },
+  "output": {
+    "description": "Full raw article object including internal metadata fields not exposed by getArticleById.",
+    "fields": {
+      "_id": "string — article identifier",
+      "title": "string — article title",
+      "content": "string — full article body",
+      "author": "string — userId of the author",
+      "publishedAt": "string — ISO 8601 publication timestamp",
+      "createdAt": "string — ISO 8601 creation timestamp",
+      "language": "string — ISO 639-1 language code",
+      "category": "string — article category",
+      "votes": "object — raw vote data",
+      "meta": "object — internal metadata fields"
+    }
+  },
+  "notes": "Returns the raw server-side document including internal metadata that getArticleById omits. Useful when the full data model is needed."
+}

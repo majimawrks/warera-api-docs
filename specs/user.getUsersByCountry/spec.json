@@ -1,0 +1,32 @@
+{
+  "endpoint": "user.getUsersByCountry",
+  "namespace": "user",
+  "method": "getUsersByCountry",
+  "auth": "optional",
+  "description": "Returns a paginated list of users belonging to a specific country.",
+  "input": {
+    "countryId": {
+      "type": "string",
+      "required": true,
+      "description": "Unique identifier of the country."
+    },
+    "cursor": {
+      "type": "string",
+      "required": false,
+      "description": "Pagination cursor returned by the previous response."
+    },
+    "limit": {
+      "type": "number",
+      "required": false,
+      "description": "Maximum number of users to return."
+    }
+  },
+  "output": {
+    "description": "Paginated list of lite user profiles for users in the specified country.",
+    "fields": {
+      "items": "array — list of getUserLite-shaped user objects",
+      "nextCursor": "string|null — cursor for the next page, null when no more pages"
+    }
+  },
+  "notes": "Each item in items has the same shape as the response from user.getUserLite."
+}

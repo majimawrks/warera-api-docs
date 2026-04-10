@@ -1,0 +1,15 @@
+{
+  "endpoint": "itemTrading.getPrices",
+  "namespace": "itemTrading",
+  "method": "getPrices",
+  "auth": "optional",
+  "description": "Returns current market prices for all tradeable items.",
+  "input": {},
+  "output": {
+    "description": "Object mapping itemCode to price information for every tradeable item.",
+    "fields": {
+      "<itemCode>": "object — price info for the item (buy price, sell price, and related data)"
+    }
+  },
+  "notes": "The response is a map keyed by item code strings (e.g. grain, oil, iron). Each value contains the current market price data for that item."
+}

@@ -1,0 +1,34 @@
+{
+  "endpoint": "sanction.getPaginated",
+  "namespace": "sanction",
+  "method": "getPaginated",
+  "auth": "optional",
+  "description": "Returns a paginated list of sanctions, optionally filtered by target user.",
+  "input": {
+    "targetUserId": {
+      "type": "string",
+      "required": false,
+      "description": "Filter sanctions by the sanctioned user's ID."
+    },
+    "limit": {
+      "type": "number",
+      "required": false,
+      "description": "Maximum number of sanctions to return.",
+      "default": 100
+    },
+    "direction": {
+      "type": "string",
+      "required": false,
+      "description": "Pagination direction.",
+      "enum": ["forward", "backward"]
+    }
+  },
+  "output": {
+    "description": "Paginated list of sanction records and a cursor for the next page.",
+    "fields": {
+      "items": "array — list of Sanction objects",
+      "nextCursor": "string|null — cursor for the next page, null when no more pages"
+    }
+  },
+  "notes": "Sanction object contains: data (object with type e.g. 'BAN' and reason string), plus other metadata fields. The direction parameter controls cursor traversal order."
+}

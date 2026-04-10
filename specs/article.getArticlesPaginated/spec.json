@@ -1,0 +1,41 @@
+{
+  "endpoint": "article.getArticlesPaginated",
+  "namespace": "article",
+  "method": "getArticlesPaginated",
+  "auth": "optional",
+  "description": "Returns a paginated list of articles, optionally filtered by type and language.",
+  "input": {
+    "type": {
+      "type": "string",
+      "required": false,
+      "description": "Article feed type to retrieve.",
+      "enum": ["daily", "weekly", "top", "my", "subscriptions", "last"],
+      "default": "last"
+    },
+    "limit": {
+      "type": "number",
+      "required": false,
+      "description": "Maximum number of articles to return.",
+      "default": 10
+    },
+    "cursor": {
+      "type": "string",
+      "required": false,
+      "description": "Pagination cursor returned by the previous response."
+    },
+    "languages": {
+      "type": "array",
+      "required": false,
+      "description": "Filter articles by ISO 639-1 language codes.",
+      "items": "string"
+    }
+  },
+  "output": {
+    "description": "Paginated list of article summaries with a cursor for the next page.",
+    "fields": {
+      "items": "array — list of Article objects",
+      "nextCursor": "string|null — cursor to pass as cursor for the next page, null when no more pages"
+    }
+  },
+  "notes": "Article object fields: _id, title, content, author (userId), publishedAt, createdAt, language, category. The my and subscriptions types require an authenticated session; unauthenticated requests may return empty results for those types."
+}

@@ -1,0 +1,48 @@
+{
+  "endpoint": "event.getEventsPaginated",
+  "namespace": "event",
+  "method": "getEventsPaginated",
+  "auth": "optional",
+  "description": "Returns a paginated list of game events, optionally filtered by country and event type.",
+  "input": {
+    "countryId": {
+      "type": "string",
+      "required": false,
+      "description": "Filter events by country."
+    },
+    "limit": {
+      "type": "number",
+      "required": false,
+      "description": "Maximum number of events to return.",
+      "default": 10
+    },
+    "cursor": {
+      "type": "string",
+      "required": false,
+      "description": "Pagination cursor returned by the previous response."
+    },
+    "eventTypes": {
+      "type": "array",
+      "required": false,
+      "description": "Filter by one or more event type strings.",
+      "items": "string",
+      "enum": [
+        "warDeclared", "peace_agreement", "battleOpened", "battleEnded",
+        "newPresident", "regionTransfer", "peaceMade", "countryMoneyTransfer",
+        "depositDiscovered", "depositDepleted", "systemRevolt", "bankruptcy",
+        "allianceFormed", "allianceBroken", "regionLiberated",
+        "strategicResourcesReshuffled", "resistanceIncreased",
+        "resistanceDecreased", "revolutionStarted", "revolutionEnded",
+        "financedRevolt"
+      ]
+    }
+  },
+  "output": {
+    "description": "Paginated list of event objects and a cursor for the next page.",
+    "fields": {
+      "items": "array — list of Event objects",
+      "nextCursor": "string|null — cursor for the next page, null when no more pages"
+    }
+  },
+  "notes": "Event object fields: type (string), data (object, shape varies by event type), createdAt (ISO 8601 timestamp)."
+}
