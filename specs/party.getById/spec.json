@@ -2,24 +2,69 @@
   "endpoint": "party.getById",
   "namespace": "party",
   "method": "getById",
-  "auth": "optional",
-  "description": "Returns a political party object by its ID.",
+  "auth": "none",
+  "description": "Returns a political party profile by ID.",
   "input": {
     "partyId": {
       "type": "string",
       "required": true,
-      "description": "Unique identifier of the political party."
+      "description": "Party ID."
     }
   },
   "output": {
-    "description": "Political party object with identity, country, and membership data.",
+    "description": "See exampleResult for full structure.",
     "fields": {
-      "_id": "string — party identifier",
-      "name": "string — party name",
-      "country": "string — countryId the party belongs to",
-      "ethicsBonus": "number — ethics bonus provided by the party",
-      "members": "object — member count and related membership info"
+      "ethics": "object",
+      "ethics.militarism": "number",
+      "ethics.isolationism": "number",
+      "ethics.imperialism": "number",
+      "ethics.industrialism": "number",
+      "_id": "string",
+      "name": "string",
+      "description": "string",
+      "country": "string",
+      "region": "string",
+      "councilMembers": "array of strings",
+      "members": "array of strings",
+      "createdAt": "string",
+      "updatedAt": "string",
+      "__v": "number",
+      "avatarUrl": "string",
+      "primaryWinner": "string",
+      "treasurer": "string",
+      "leader": "string"
     }
   },
-  "notes": "Authentication may expose additional internal fields."
+  "notes": "",
+  "exampleRequest": {
+    "partyId": "<partyId>"
+  },
+  "exampleResult": {
+    "ethics": {
+      "militarism": 2,
+      "isolationism": 0,
+      "imperialism": -1,
+      "industrialism": 0
+    },
+    "_id": "<partyId>",
+    "name": "NAME",
+    "description": "DESCRIPTION",
+    "country": "<country>",
+    "region": "<region>",
+    "councilMembers": [
+      "<councilMemberId>",
+      "<councilMemberId>"
+    ],
+    "members": [
+      "<memberId>",
+      "<memberId>"
+    ],
+    "createdAt": "<isoTimestamp>",
+    "updatedAt": "<isoTimestamp>",
+    "__v": 0,
+    "avatarUrl": "AVATARURL",
+    "primaryWinner": "<primaryWinner>",
+    "treasurer": "<treasurer>",
+    "leader": "<leader>"
+  }
 }

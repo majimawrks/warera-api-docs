@@ -1,34 +1,67 @@
 # sanction.getPaginated
 
-Returns a paginated list of sanctions, optionally filtered by target user.
+Returns a paginated list of player sanctions.
 
 ## Auth
-optional
+none
 
 ## Input
-| Parameter | Type | Required | Default | Description |
-|---|---|---|---|---|
-| targetUserId | string | no | — | Filter sanctions by the sanctioned user's ID |
-| limit | number | no | 100 | Maximum number of sanctions to return |
-| direction | string | no | — | Pagination direction: forward or backward |
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `targetUserId` | string | no | Filter by sanctioned user ID. |
+| `direction` | string | no | Sort direction: asc or desc. |
+| `limit` | number | no | Max results. |
+| `cursor` | string | no | Pagination cursor. |
 
 ## Output
-Paginated list of sanction records and a cursor for the next page.
-
-### Fields
-- `items` — array — list of Sanction objects
-- `nextCursor` — string|null — cursor for the next page; null when no more pages
-
-### Sanction object fields
-- `data` — object — sanction details
-  - `type` — string — sanction type (e.g. `"BAN"`)
-  - `reason` — string — reason for the sanction
-- (additional metadata fields may be present)
-
-## Notes
-The `direction` parameter controls cursor traversal order (forward or backward through the result set).
+- `items` — array of objects
+- `items[]._id` — string
+- `items[].targetUser` — string
+- `items[].data` — object
+- `items[].data.type` — string
+- `items[].data.reason` — string
+- `items[].createdAt` — string
+- `items[].updatedAt` — string
+- `items[].__v` — number
+- `nextCursor` — string
 
 ## Example request
 ```
-GET https://api2.warera.io/trpc/sanction.getPaginated?input={"targetUserId":"abc123","limit":100,"direction":"forward"}
+GET https://api2.warera.io/trpc/sanction.getPaginated?input={"limit": 2}
 ```
+
+## Example result
+```json
+{
+  "items": [
+    {
+      "_id": "<sanctionId>",
+      "targetUser": "<targetUser>",
+      "data": {
+        "type": "UNBAN",
+        "reason": "Reduced ban (Appeal)"
+      },
+      "createdAt": "<isoTimestamp>",
+      "updatedAt": "<isoTimestamp>",
+      "__v": 0
+    },
+    {
+      "_id": "<sanctionId>",
+      "targetUser": "<targetUser>",
+      "data": {
+        "type": "MUTE_USER",
+        "durationInDays": 7,
+        "unMuteAt": "<isoTimestamp>",
+        "reason": "Racism."
+      },
+      "createdAt": "<isoTimestamp>",
+      "updatedAt": "<isoTimestamp>",
+      "__v": 0
+    }
+  ],
+  "nextCursor": "NEXTCURSOR"
+}
+```
+
+## Notes
+No countryId filter — the API does not support filtering sanctions by country.

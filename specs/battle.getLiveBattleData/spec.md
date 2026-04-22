@@ -1,34 +1,63 @@
 # battle.getLiveBattleData
 
-Returns live damage, points, and timer data for a specific round of an active battle.
+Returns live battle data including round scores and fighter rankings.
 
 ## Auth
-optional
+none
 
 ## Input
-| Parameter | Type | Required | Default | Description |
-|---|---|---|---|---|
-| battleId | string | yes | — | Unique identifier of the battle |
-| roundNumber | number | yes | — | 1-indexed round number to retrieve live data for |
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `battleId` | string | yes | Battle ID. |
 
 ## Output
-Live round state including damages, points, and next tick time.
-
-### Fields
-- `round` — object — live round data
-
-### Round object fields
-- `isActive` — boolean — whether the round is currently active
-- `attackerDamages` — number — total damage dealt by the attacker side
-- `defenderDamages` — number — total damage dealt by the defender side
-- `attackerPoints` — number — attacker's current point count
-- `defenderPoints` — number — defender's current point count
-- `nextTickAt` — string — ISO 8601 timestamp of the next scoring tick
-
-## Notes
-Poll this endpoint to track real-time battle progress. `roundNumber` is 1-indexed.
+- `battle` — object
+- `battle.isActive` — boolean
+- `battle.attackerCountryOrders` — array of strings
+- `battle.defenderCountryOrders` — array
+- `battle.roundIds` — array of strings
+- `battle.roundHistory` — array
+- `round` — object
+- `round.roundId` — string
+- `round.attackerDamages` — number
+- `round.defenderDamages` — number
+- `round.isActive` — boolean
+- `round.actualTickPoints` — number
+- `round.attackerPoints` — number
+- `round.nextTickAt` — string
+- `round.defenderPoints` — number
 
 ## Example request
 ```
-GET https://api2.warera.io/trpc/battle.getLiveBattleData?input={"battleId":"abc123","roundNumber":1}
+GET https://api2.warera.io/trpc/battle.getLiveBattleData?input={"battleId": "<battleId>"}
 ```
+
+## Example result
+```json
+{
+  "battle": {
+    "isActive": true,
+    "attackerCountryOrders": [
+      "<attackerCountryOrderId>"
+    ],
+    "defenderCountryOrders": [],
+    "roundIds": [
+      "<roundIdId>"
+    ],
+    "roundHistory": []
+  },
+  "round": {
+    "roundId": "<roundId>",
+    "attackerDamages": 236339,
+    "defenderDamages": 711,
+    "isActive": true,
+    "actualTickPoints": 1,
+    "attackerPoints": 20,
+    "nextTickAt": "<isoTimestamp>",
+    "defenderPoints": 0
+  }
+}
+```
+
+## Notes
+Combine with battle.getById to build a full battle dossier.

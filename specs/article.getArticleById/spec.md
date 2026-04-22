@@ -1,36 +1,69 @@
 # article.getArticleById
 
-Returns a full article object including engagement metrics by article ID.
+Returns a full article object by ID, including content HTML, votes, and comments.
 
 ## Auth
-optional
+none
 
 ## Input
-| Parameter | Type | Required | Default | Description |
-|---|---|---|---|---|
-| articleId | string | yes | — | Unique identifier of the article |
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `articleId` | string | yes | Article ID. |
 
 ## Output
-Full article object with content and engagement metrics.
-
-### Fields
-- `_id` — string — article identifier
-- `title` — string — article title
-- `content` — string — full article body
-- `author` — string — userId of the author
-- `publishedAt` — string — ISO 8601 publication timestamp
-- `createdAt` — string — ISO 8601 creation timestamp
-- `language` — string — ISO 639-1 language code
-- `category` — string — article category
-- `likes` — number — total like count
-- `dislikes` — number — total dislike count
-- `views` — number — total view count
-- `comments` — array — list of comment objects
-
-## Notes
-Authentication may reveal additional fields such as the requesting user's vote status on the article.
+- `stats` — object
+- `stats.likes` — number
+- `stats.dislikes` — number
+- `stats.score` — number
+- `stats.views` — number
+- `stats.comments` — number
+- `stats.subs` — number
+- `stats.tips` — number
+- `stats.gemTips` — number
+- `_id` — string
+- `title` — string
+- `content` — string
+- `language` — string
+- `category` — string
+- `author` — string
+- `isPublished` — boolean
+- `isDeleted` — boolean
+- `isPublic` — boolean
+- `createdAt` — string
+- `updatedAt` — string
+- `__v` — number
+- `publishedAt` — string
 
 ## Example request
 ```
-GET https://api2.warera.io/trpc/article.getArticleById?input={"articleId":"abc123"}
+GET https://api2.warera.io/trpc/article.getArticleById?input={"articleId": "<articleId>"}
+```
+
+## Example result
+```json
+{
+  "stats": {
+    "likes": 0,
+    "dislikes": 1,
+    "score": -1,
+    "views": 4,
+    "comments": 0,
+    "subs": 0,
+    "tips": 0,
+    "gemTips": 0
+  },
+  "_id": "<articleId>",
+  "title": "TITLE",
+  "content": "CONTENT",
+  "language": "en",
+  "category": "military",
+  "author": "<author>",
+  "isPublished": true,
+  "isDeleted": false,
+  "isPublic": true,
+  "createdAt": "<isoTimestamp>",
+  "updatedAt": "<isoTimestamp>",
+  "__v": 0,
+  "publishedAt": "<isoTimestamp>"
+}
 ```

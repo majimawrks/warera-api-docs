@@ -3,37 +3,74 @@
   "namespace": "battleRanking",
   "method": "getRanking",
   "auth": "optional",
-  "description": "Returns a ranked list of users by damage or points for one side of a battle.",
+  "description": "Returns rankings within a specific battle, grouped by entity type and side.",
   "input": {
     "battleId": {
       "type": "string",
       "required": true,
-      "description": "Unique identifier of the battle."
+      "description": "Battle ID."
+    },
+    "type": {
+      "type": "string",
+      "required": true,
+      "enum": [
+        "user",
+        "country",
+        "mu"
+      ],
+      "description": "Entity type to rank within the battle."
+    },
+    "side": {
+      "type": "string",
+      "required": true,
+      "enum": [
+        "attacker",
+        "defender",
+        "merged"
+      ],
+      "description": "Which side to return. Use 'merged' for combined rankings."
     },
     "dataType": {
       "type": "string",
       "required": false,
-      "description": "Metric to rank by.",
-      "enum": ["damage", "points"]
-    },
-    "type": {
-      "type": "string",
-      "required": false,
-      "description": "Entity type to rank.",
-      "enum": ["user"]
-    },
-    "side": {
-      "type": "string",
-      "required": false,
-      "description": "Which side of the battle to retrieve rankings for.",
-      "enum": ["attacker", "defender"]
+      "enum": [
+        "damage",
+        "points"
+      ],
+      "description": "Metric to rank by. Default: damage."
     }
   },
   "output": {
-    "description": "Ranked list of users with their metric value.",
+    "description": "See exampleResult for full structure.",
     "fields": {
-      "rankings": "array — list of ranking entries, each with user (userId) and value (number)"
+      "rankings": "array of objects",
+      "rankings[].user": "string",
+      "rankings[].value": "number",
+      "rankings[].rank": "number",
+      "rankings[]._id": "string"
     }
   },
-  "notes": "Rankings are ordered descending by value. Currently only type=user is supported."
+  "notes": "All three of battleId, type, and side are required. Previous spec was incorrect — type and side were missing.",
+  "exampleRequest": {
+    "battleId": "<battleId>",
+    "type": "user",
+    "side": "merged",
+    "dataType": "damage"
+  },
+  "exampleResult": {
+    "rankings": [
+      {
+        "user": "<user>",
+        "value": 76476,
+        "rank": 1,
+        "_id": "<rankingId>"
+      },
+      {
+        "user": "<user>",
+        "value": 46614,
+        "rank": 2,
+        "_id": "<rankingId>"
+      }
+    ]
+  }
 }

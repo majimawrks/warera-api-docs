@@ -1,39 +1,107 @@
 # article.getArticlesPaginated
 
-Returns a paginated list of articles, optionally filtered by type and language.
+Returns a paginated list of articles.
 
 ## Auth
-optional
+none
 
 ## Input
-| Parameter | Type | Required | Default | Description |
-|---|---|---|---|---|
-| type | string | no | last | Article feed type: daily, weekly, top, my, subscriptions, last |
-| limit | number | no | 10 | Maximum number of articles to return |
-| cursor | string | no | — | Pagination cursor returned by the previous response |
-| languages | string[] | no | — | Filter by ISO 639-1 language codes, e.g. ["id","en"] |
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `type` | string | yes | Feed type. REQUIRED — omitting causes 400. Enum: `daily` \| `weekly` \| `top` \| `my` \| `subscriptions` \| `last`. |
+| `limit` | number | no | Max articles per page. |
+| `cursor` | string | no | Pagination cursor. |
+| `languages` | array of strings | no | ISO 639-1 language codes to filter by (e.g. id, en). |
 
 ## Output
-Paginated list of article summaries and a cursor for the next page.
-
-### Fields
-- `items` — array — list of Article objects
-- `nextCursor` — string|null — cursor to pass as `cursor` for the next page; null when no more pages
-
-### Article object fields
-- `_id` — string — article identifier
-- `title` — string — article title
-- `content` — string — article body
-- `author` — string — userId of the author
-- `publishedAt` — string — ISO 8601 publication timestamp
-- `createdAt` — string — ISO 8601 creation timestamp
-- `language` — string — ISO 639-1 language code
-- `category` — string — article category
-
-## Notes
-The `my` and `subscriptions` types require an authenticated session; unauthenticated requests may return empty results for those types.
+- `items` — array of objects
+- `items[].stats` — object
+- `items[].stats.likes` — number
+- `items[].stats.dislikes` — number
+- `items[].stats.score` — number
+- `items[].stats.views` — number
+- `items[].stats.comments` — number
+- `items[].stats.subs` — number
+- `items[].stats.tips` — number
+- `items[].stats.gemTips` — number
+- `items[]._id` — string
+- `items[].title` — string
+- `items[].content` — string
+- `items[].language` — string
+- `items[].category` — string
+- `items[].author` — string
+- `items[].isPublished` — boolean
+- `items[].isDeleted` — boolean
+- `items[].isPublic` — boolean
+- `items[].createdAt` — string
+- `items[].updatedAt` — string
+- `items[].__v` — number
+- `items[].publishedAt` — string
+- `nextCursor` — string
 
 ## Example request
 ```
-GET https://api2.warera.io/trpc/article.getArticlesPaginated?input={"type":"last","limit":10,"languages":["en"]}
+GET https://api2.warera.io/trpc/article.getArticlesPaginated?input={"type": "last","limit": 2}
 ```
+
+## Example result
+```json
+{
+  "items": [
+    {
+      "stats": {
+        "likes": 0,
+        "dislikes": 1,
+        "score": -1,
+        "views": 4,
+        "comments": 0,
+        "subs": 0,
+        "tips": 0,
+        "gemTips": 0
+      },
+      "_id": "<articleId>",
+      "title": "TITLE",
+      "content": "CONTENT",
+      "language": "en",
+      "category": "military",
+      "author": "<author>",
+      "isPublished": true,
+      "isDeleted": false,
+      "isPublic": true,
+      "createdAt": "<isoTimestamp>",
+      "updatedAt": "<isoTimestamp>",
+      "__v": 0,
+      "publishedAt": "<isoTimestamp>"
+    },
+    {
+      "stats": {
+        "likes": 1,
+        "dislikes": 0,
+        "score": 1,
+        "views": 10,
+        "comments": 0,
+        "subs": 0,
+        "tips": 0,
+        "gemTips": 0
+      },
+      "_id": "<articleId>",
+      "title": "TITLE",
+      "content": "CONTENT",
+      "language": "ar",
+      "category": "news",
+      "author": "<author>",
+      "isPublished": true,
+      "isDeleted": false,
+      "isPublic": true,
+      "createdAt": "<isoTimestamp>",
+      "updatedAt": "<isoTimestamp>",
+      "__v": 0,
+      "publishedAt": "<isoTimestamp>"
+    }
+  ],
+  "nextCursor": "NEXTCURSOR"
+}
+```
+
+## Notes
+`type` is required in practice — the API returns 400 if omitted despite the spec marking it optional.

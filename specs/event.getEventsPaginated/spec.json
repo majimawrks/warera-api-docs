@@ -2,47 +2,95 @@
   "endpoint": "event.getEventsPaginated",
   "namespace": "event",
   "method": "getEventsPaginated",
-  "auth": "optional",
-  "description": "Returns a paginated list of game events, optionally filtered by country and event type.",
+  "auth": "none",
+  "description": "Returns a paginated feed of in-game events.",
   "input": {
     "countryId": {
       "type": "string",
       "required": false,
       "description": "Filter events by country."
     },
+    "eventTypes": {
+      "type": "array of strings",
+      "required": false,
+      "description": "Filter by event type(s). Valid values: warDeclared, battleOpened, battleEnded, peaceMade, newPresident, regionTransfer, countryMoneyTransfer, depositDiscovered, depositDepleted, systemRevolt, bankruptcy, allianceFormed, allianceBroken, regionLiberated, strategicResourcesReshuffled, resistanceIncreased, resistanceDecreased, revolutionStarted, revolutionEnded, financedRevolt"
+    },
     "limit": {
       "type": "number",
       "required": false,
-      "description": "Maximum number of events to return.",
-      "default": 10
+      "description": "Max events per page."
     },
     "cursor": {
       "type": "string",
       "required": false,
-      "description": "Pagination cursor returned by the previous response."
-    },
-    "eventTypes": {
-      "type": "array",
-      "required": false,
-      "description": "Filter by one or more event type strings.",
-      "items": "string",
-      "enum": [
-        "warDeclared", "peace_agreement", "battleOpened", "battleEnded",
-        "newPresident", "regionTransfer", "peaceMade", "countryMoneyTransfer",
-        "depositDiscovered", "depositDepleted", "systemRevolt", "bankruptcy",
-        "allianceFormed", "allianceBroken", "regionLiberated",
-        "strategicResourcesReshuffled", "resistanceIncreased",
-        "resistanceDecreased", "revolutionStarted", "revolutionEnded",
-        "financedRevolt"
-      ]
+      "description": "Pagination cursor."
     }
   },
   "output": {
-    "description": "Paginated list of event objects and a cursor for the next page.",
+    "description": "See exampleResult for full structure.",
     "fields": {
-      "items": "array — list of Event objects",
-      "nextCursor": "string|null — cursor for the next page, null when no more pages"
+      "items": "array of objects",
+      "items[]._id": "string",
+      "items[].countries": "array of strings",
+      "items[].priority": "string",
+      "items[].data": "object",
+      "items[].data.type": "string",
+      "items[].data.regions": "array of strings",
+      "items[].data.countries": "array of strings",
+      "items[].data.amount": "number",
+      "items[].createdAt": "string",
+      "items[].updatedAt": "string",
+      "items[].__v": "number",
+      "nextCursor": "string"
     }
   },
-  "notes": "Event object fields: type (string), data (object, shape varies by event type), createdAt (ISO 8601 timestamp)."
+  "notes": "Returns `items` array and `nextCursor` for pagination.",
+  "exampleRequest": {
+    "limit": 2
+  },
+  "exampleResult": {
+    "items": [
+      {
+        "_id": "<eventId>",
+        "countries": [
+          "<countrieId>",
+          "<countrieId>"
+        ],
+        "priority": "2",
+        "data": {
+          "type": "regionTransfer",
+          "regions": [
+            "<regionId>"
+          ],
+          "countries": [
+            "<countrieId>",
+            "<countrieId>"
+          ],
+          "amount": 50
+        },
+        "createdAt": "<isoTimestamp>",
+        "updatedAt": "<isoTimestamp>",
+        "__v": 0
+      },
+      {
+        "_id": "<eventId>",
+        "countries": [
+          "<countrieId>",
+          "<countrieId>"
+        ],
+        "priority": "2",
+        "data": {
+          "type": "allianceFormed",
+          "countries": [
+            "<countrieId>",
+            "<countrieId>"
+          ]
+        },
+        "createdAt": "<isoTimestamp>",
+        "updatedAt": "<isoTimestamp>",
+        "__v": 0
+      }
+    ],
+    "nextCursor": "NEXTCURSOR"
+  }
 }

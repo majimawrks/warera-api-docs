@@ -2,21 +2,86 @@
   "endpoint": "tradingOrder.getTopOrders",
   "namespace": "tradingOrder",
   "method": "getTopOrders",
-  "auth": "optional",
+  "auth": "none",
   "description": "Returns the top buy and sell orders for a specific tradeable item.",
   "input": {
     "itemCode": {
       "type": "string",
       "required": true,
-      "description": "Item code to retrieve orders for, e.g. grain, oil, iron."
+      "description": "Item code (e.g. grain, oil, iron, steel, bread, lightAmmo)."
     }
   },
   "output": {
-    "description": "Top buy and sell orders for the specified item.",
+    "description": "See exampleResult for full structure.",
     "fields": {
-      "buy": "array — top buy orders, each with price, quantity, and userId",
-      "sell": "array — top sell orders, each with price, quantity, and userId"
+      "buyOrders": "array of objects",
+      "buyOrders[]._id": "string",
+      "buyOrders[].user": "string",
+      "buyOrders[].itemCode": "string",
+      "buyOrders[].quantity": "number",
+      "buyOrders[].price": "number",
+      "buyOrders[].offerAt": "string",
+      "buyOrders[].type": "string",
+      "buyOrders[].__v": "number",
+      "sellOrders": "array of objects",
+      "sellOrders[]._id": "string",
+      "sellOrders[].user": "string",
+      "sellOrders[].itemCode": "string",
+      "sellOrders[].quantity": "number",
+      "sellOrders[].price": "number",
+      "sellOrders[].offerAt": "string",
+      "sellOrders[].type": "string",
+      "sellOrders[].__v": "number"
     }
   },
-  "notes": "Buy orders are sorted descending by price (best bid first). Sell orders are sorted ascending by price (lowest ask first). Order object fields: price (number), quantity (number), userId (string)."
+  "notes": "CORRECTION: output fields are `buyOrders` and `sellOrders` (original spec documented `buy`/`sell`).",
+  "exampleRequest": {
+    "itemCode": "grain"
+  },
+  "exampleResult": {
+    "buyOrders": [
+      {
+        "_id": "<orderId>",
+        "user": "<user>",
+        "itemCode": "grain",
+        "quantity": 751,
+        "price": 0.077,
+        "offerAt": "<isoTimestamp>",
+        "type": "buy",
+        "__v": 0
+      },
+      {
+        "_id": "<orderId>",
+        "user": "<user>",
+        "itemCode": "grain",
+        "quantity": 201,
+        "price": 0.076,
+        "offerAt": "<isoTimestamp>",
+        "type": "buy",
+        "__v": 0
+      }
+    ],
+    "sellOrders": [
+      {
+        "_id": "<orderId>",
+        "user": "<user>",
+        "itemCode": "grain",
+        "quantity": 110,
+        "price": 0.079,
+        "offerAt": "<isoTimestamp>",
+        "type": "sell",
+        "__v": 0
+      },
+      {
+        "_id": "<orderId>",
+        "user": "<user>",
+        "itemCode": "grain",
+        "quantity": 2400,
+        "price": 0.079,
+        "offerAt": "<isoTimestamp>",
+        "type": "sell",
+        "__v": 0
+      }
+    ]
+  }
 }

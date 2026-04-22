@@ -2,22 +2,39 @@
   "endpoint": "search.searchAnything",
   "namespace": "search",
   "method": "searchAnything",
-  "auth": "optional",
-  "description": "Searches across all entity types and returns arrays of matched IDs per type.",
+  "auth": "none",
+  "description": "Searches across all entity types: users, MUs, countries, regions, and parties.",
   "input": {
     "searchText": {
       "type": "string",
       "required": true,
-      "description": "The search query string."
+      "description": "Search query. NOTE: the param name is `searchText`, not `query`."
     }
   },
   "output": {
-    "description": "Arrays of matched entity IDs grouped by entity type.",
+    "description": "See exampleResult for full structure.",
     "fields": {
-      "userIds": "array — IDs of matching users",
-      "muIds": "array — IDs of matching military units",
-      "countryIds": "array — IDs of matching countries"
+      "userIds": "array of strings",
+      "muIds": "array",
+      "countryIds": "array",
+      "regionIds": "array",
+      "partyIds": "array",
+      "hasData": "boolean"
     }
   },
-  "notes": "Origin and Referer headers set to app.warera.io are required for some result types. Authentication may expand the result set."
+  "notes": "CORRECTION: param name is `searchText` (not `query`). Response has 6 fields — original spec only documented 3.",
+  "exampleRequest": {
+    "searchText": "warera"
+  },
+  "exampleResult": {
+    "userIds": [
+      "<userIdId>",
+      "<userIdId>"
+    ],
+    "muIds": [],
+    "countryIds": [],
+    "regionIds": [],
+    "partyIds": [],
+    "hasData": true
+  }
 }

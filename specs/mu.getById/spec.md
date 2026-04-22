@@ -1,29 +1,201 @@
 # mu.getById
 
-Returns a military unit object by its ID.
+Returns a military unit (MU) profile by ID.
 
 ## Auth
-optional
+none
 
 ## Input
-| Parameter | Type | Required | Default | Description |
-|---|---|---|---|---|
-| muId | string | yes | — | Unique identifier of the military unit |
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `muId` | string | yes | MU ID. |
 
 ## Output
-Military unit object with identity and membership data.
-
-### Fields
-- `_id` — string — military unit identifier
-- `name` — string — military unit name
-- `country` — string — countryId the MU belongs to
-- `memberCount` — number — number of members
-- `meta` — object — additional MU metadata
-
-## Notes
-MU stands for military unit. Authentication may expose additional internal fields.
+- `roles` — object
+- `roles.managers` — array of strings
+- `roles.commanders` — array of strings
+- `leveling` — object
+- `leveling.level` — number
+- `leveling.monthlyDamages` — number
+- `_id` — string
+- `user` — string
+- `region` — string
+- `name` — string
+- `members` — array of strings
+- `createdAt` — string
+- `updatedAt` — string
+- `__v` — number
+- `activeUpgradeLevels` — object
+- `activeUpgradeLevels.dormitories` — number
+- `rankings` — object
+- `rankings.muWeeklyDamages` — object
+- `rankings.muWeeklyDamages.value` — number
+- `rankings.muWeeklyDamages.rank` — number
+- `rankings.muWeeklyDamages.tier` — string
+- `rankings.muBounty` — object
+- `rankings.muBounty.value` — number
+- `rankings.muBounty.rank` — number
+- `rankings.muBounty.tier` — string
+- `rankings.muDamages` — object
+- `rankings.muDamages.value` — number
+- `rankings.muDamages.rank` — number
+- `rankings.muDamages.tier` — string
+- `rankings.muTerrain` — object
+- `rankings.muTerrain.value` — number
+- `rankings.muTerrain.rank` — number
+- `rankings.muTerrain.tier` — string
+- `rankings.muWealth` — object
+- `rankings.muWealth.value` — number
+- `rankings.muWealth.rank` — number
+- `rankings.muWealth.tier` — string
+- `investedMoneyByUsers` — object
+- `investedMoneyByUsers.681f6b321353a30cee0b9f4e` — number
+- `investedMoneyByUsers.6820d2743175aaf8ed45d9b3` — number
+- `investedMoneyByUsers.68411e9d58829802e83a4599` — number
+- `investedMoneyByUsers.6843f07eb4b5cb4151b6e5dd` — number
+- `investedMoneyByUsers.684f771be50fc31885626d2a` — number
+- `investedMoneyByUsers.68ae7d295c95eb4b6d5974a2` — number
+- `investedMoneyByUsers.681ccc845a84696e45810bf7` — number
+- `investedMoneyByUsers.687b7eef9deb08620c30ade2` — number
+- `investedMoneyByUsers.68606a9da11a014c0af11096` — number
+- `investedMoneyByUsers.68aee5968a9fef3fb85adaf0` — number
+- `investedMoneyByUsers.68ae13d4adbb9b525cd41f63` — number
+- `investedMoneyByUsers.68c988c387c3803116378685` — number
+- `investedMoneyByUsers.6914c8573518492259c54da5` — number
+- `investedMoneyByUsers.6943cda616baf6b5d55ad118` — number
+- `investedMoneyByUsers.694ca5c517c1f237bf34b11a` — number
+- `investedMoneyByUsers.69616835a40b8515b59b52d5` — number
+- `investedMoneyByUsers.6962601b4ef8b98ff58eeddd` — number
+- `investedMoneyByUsers.682201254100cdc85e623b16` — number
+- `investedMoneyByUsers.6983267fa19f494a815e3ce5` — number
+- `investedMoneyByUsers.69512e249db62cf08b4935ff` — number
+- `investedMoneyByUsers.698f5c7311b28721ff537bf6` — number
+- `investedMoneyByUsers.698fc48e12a583e532c2167c` — number
+- `investedMoneyByUsers.698fea6767d03e6587f3fa5d` — number
+- `investedMoneyByUsers.698f527511b28721ff3b972e` — number
+- `investedMoneyByUsers.698e0b45de06682cd8797f91` — number
+- `avatarUrl` — string
+- `mercenaryReputation` — number
 
 ## Example request
 ```
-GET https://api2.warera.io/trpc/mu.getById?input={"muId":"abc123"}
+GET https://api2.warera.io/trpc/mu.getById?input={"muId": "<muId>"}
+```
+
+## Example result
+```json
+{
+  "roles": {
+    "managers": [
+      "<managerId>"
+    ],
+    "commanders": [
+      "<commanderId>",
+      "<commanderId>",
+      "<commanderId>",
+      "<commanderId>",
+      "<commanderId>",
+      "<commanderId>",
+      "<commanderId>"
+    ]
+  },
+  "leveling": {
+    "level": 1,
+    "monthlyDamages": 0
+  },
+  "_id": "<muId>",
+  "user": "<user>",
+  "region": "<region>",
+  "name": "NAME",
+  "members": [
+    "<memberId>",
+    "<memberId>"
+  ],
+  "createdAt": "<isoTimestamp>",
+  "updatedAt": "<isoTimestamp>",
+  "__v": 0,
+  "activeUpgradeLevels": {
+    "dormitories": 5
+  },
+  "rankings": {
+    "muWeeklyDamages": {
+      "value": 629267,
+      "rank": 217,
+      "tier": "gold"
+    },
+    "muBounty": {
+      "value": 3930.80766309,
+      "rank": 150,
+      "tier": "gold"
+    },
+    "muDamages": {
+      "value": 55218340,
+      "rank": 159,
+      "tier": "gold"
+    },
+    "muTerrain": {
+      "value": 32006,
+      "rank": 75,
+      "tier": "platinum"
+    },
+    "muWealth": {
+      "value": 429.42900000000026,
+      "rank": 219,
+      "tier": "gold"
+    }
+  },
+  "investedMoneyByUsers": {
+    "681f6b321353a30cee0b9f4e": 30,
+    "6820d2743175aaf8ed45d9b3": 162,
+    "68411e9d58829802e83a4599": 2050,
+    "6843f07eb4b5cb4151b6e5dd": 10,
+    "684f771be50fc31885626d2a": 806,
+    "68ae7d295c95eb4b6d5974a2": 50,
+    "681ccc845a84696e45810bf7": 696,
+    "687b7eef9deb08620c30ade2": 1,
+    "68606a9da11a014c0af11096": 1,
+    "68aee5968a9fef3fb85adaf0": 31,
+    "68ae13d4adbb9b525cd41f63": 555.555,
+    "68c988c387c3803116378685": 1,
+    "6914c8573518492259c54da5": 1,
+    "6943cda616baf6b5d55ad118": 19.001,
+    "694ca5c517c1f237bf34b11a": 1,
+    "69616835a40b8515b59b52d5": 1,
+    "6962601b4ef8b98ff58eeddd": 1,
+    "682201254100cdc85e623b16": 9,
+    "6983267fa19f494a815e3ce5": 1,
+    "69512e249db62cf08b4935ff": 1,
+    "698f5c7311b28721ff537bf6": 1,
+    "698fc48e12a583e532c2167c": 1,
+    "698fea6767d03e6587f3fa5d": 1,
+    "698f527511b28721ff3b972e": 1,
+    "698e0b45de06682cd8797f91": 1,
+    "698f030f7495f11e1d908bc8": 1,
+    "698fff6e35cffdb47fed717f": 1,
+    "698fb9884008d83db905e69c": 1,
+    "698c36dd549b8398feb0fd06": 1,
+    "699026204008d83db932e6f9": 1,
+    "69901a7367d03e658709065f": 1,
+    "699031de045f90d9793f5fd6": 1,
+    "6990455aa6b2401a1f2117c8": 1,
+    "698c98b121c06469ee8af5c7": 1,
+    "6990642bfcb0af5ea3ffd3e4": 1,
+    "69907a27e71aa053d3b3a67b": 1,
+    "69907020cadd8463a5cdd7cd": 1,
+    "6990171ddb33438f64c5799d": 1,
+    "698f545928fa2dfcbe0d8e29": 1,
+    "6990680e67d03e6587476ab6": 1,
+    "69908dfd4dccfa48965113e3": 1,
+    "6990400a8b9151ad2b7c9c74": 1,
+    "6990e15f0beef0f0c5c33899": 1,
+    "6991567c3cc08eb5b48e3ac9": 1,
+    "69917d7214c25e87d11fcac3": 1,
+    "6991a8e87456ac8833948129": 1,
+    "6994882e299f8cd7540f6155": 1,
+    "6996926fb40cfdad73ac584b": 1,
+    "69963acd96787ce84bf64b22": 1
+  },
+  "avatarUrl": "AVATARURL",
+  "mercenaryReputation": -0.347197
+}
 ```

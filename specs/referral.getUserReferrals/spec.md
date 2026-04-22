@@ -1,25 +1,38 @@
 # referral.getUserReferrals
 
-Returns the non-paginated list of users referred by a given user.
+Returns a user's complete referral list (non-paginated).
 
 ## Auth
-required (jwt)
+required
 
 ## Input
-| Parameter | Type | Required | Default | Description |
-|---|---|---|---|---|
-| userId | string | yes | — | Unique identifier of the user whose referrals to retrieve |
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `userId` | string | yes | User ID. |
 
 ## Output
-Array of referred user profile objects.
-
-### Fields
-- `[]` — object — resolved user profile for each referred user
-
-## Notes
-Requires JWT cookie authentication. May return an array or an object depending on server version. For large referral lists consider using `referral.getUserReferralsPaginated`.
+- `items` — array of objects
+- `items[].referredUserId` — string
+- `items[].createdAt` — string
+- `nextCursor` — string | null
 
 ## Example request
 ```
-GET https://api2.warera.io/trpc/referral.getUserReferrals?input={"userId":"abc123"}
+GET https://api2.warera.io/trpc/referral.getUserReferrals?input={"userId": "<userId>"}
 ```
+
+## Example result
+```json
+{
+  "items": [
+    {
+      "referredUserId": "<referredUserId>",
+      "createdAt": "<isoTimestamp>"
+    }
+  ],
+  "nextCursor": null
+}
+```
+
+## Notes
+Requires JWT cookie auth (Cookie: jwt=...). API key is not accepted. Returns an array of referred user objects.

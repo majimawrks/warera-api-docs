@@ -1,29 +1,69 @@
 # party.getById
 
-Returns a political party object by its ID.
+Returns a political party profile by ID.
 
 ## Auth
-optional
+none
 
 ## Input
-| Parameter | Type | Required | Default | Description |
-|---|---|---|---|---|
-| partyId | string | yes | — | Unique identifier of the political party |
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `partyId` | string | yes | Party ID. |
 
 ## Output
-Political party object with identity, country, and membership data.
-
-### Fields
-- `_id` — string — party identifier
-- `name` — string — party name
-- `country` — string — countryId the party belongs to
-- `ethicsBonus` — number — ethics bonus provided by the party
-- `members` — object — member count and related membership info
-
-## Notes
-Authentication may expose additional internal fields.
+- `ethics` — object
+- `ethics.militarism` — number
+- `ethics.isolationism` — number
+- `ethics.imperialism` — number
+- `ethics.industrialism` — number
+- `_id` — string
+- `name` — string
+- `description` — string
+- `country` — string
+- `region` — string
+- `councilMembers` — array of strings
+- `members` — array of strings
+- `createdAt` — string
+- `updatedAt` — string
+- `__v` — number
+- `avatarUrl` — string
+- `primaryWinner` — string
+- `treasurer` — string
+- `leader` — string
 
 ## Example request
 ```
-GET https://api2.warera.io/trpc/party.getById?input={"partyId":"abc123"}
+GET https://api2.warera.io/trpc/party.getById?input={"partyId": "<partyId>"}
+```
+
+## Example result
+```json
+{
+  "ethics": {
+    "militarism": 2,
+    "isolationism": 0,
+    "imperialism": -1,
+    "industrialism": 0
+  },
+  "_id": "<partyId>",
+  "name": "NAME",
+  "description": "DESCRIPTION",
+  "country": "<country>",
+  "region": "<region>",
+  "councilMembers": [
+    "<councilMemberId>",
+    "<councilMemberId>"
+  ],
+  "members": [
+    "<memberId>",
+    "<memberId>"
+  ],
+  "createdAt": "<isoTimestamp>",
+  "updatedAt": "<isoTimestamp>",
+  "__v": 0,
+  "avatarUrl": "AVATARURL",
+  "primaryWinner": "<primaryWinner>",
+  "treasurer": "<treasurer>",
+  "leader": "<leader>"
+}
 ```

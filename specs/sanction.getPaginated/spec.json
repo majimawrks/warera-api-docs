@@ -2,33 +2,76 @@
   "endpoint": "sanction.getPaginated",
   "namespace": "sanction",
   "method": "getPaginated",
-  "auth": "optional",
-  "description": "Returns a paginated list of sanctions, optionally filtered by target user.",
+  "auth": "none",
+  "description": "Returns a paginated list of player sanctions.",
   "input": {
     "targetUserId": {
       "type": "string",
       "required": false,
-      "description": "Filter sanctions by the sanctioned user's ID."
-    },
-    "limit": {
-      "type": "number",
-      "required": false,
-      "description": "Maximum number of sanctions to return.",
-      "default": 100
+      "description": "Filter by sanctioned user ID."
     },
     "direction": {
       "type": "string",
       "required": false,
-      "description": "Pagination direction.",
-      "enum": ["forward", "backward"]
+      "description": "Sort direction: asc or desc."
+    },
+    "limit": {
+      "type": "number",
+      "required": false,
+      "description": "Max results."
+    },
+    "cursor": {
+      "type": "string",
+      "required": false,
+      "description": "Pagination cursor."
     }
   },
   "output": {
-    "description": "Paginated list of sanction records and a cursor for the next page.",
+    "description": "See exampleResult for full structure.",
     "fields": {
-      "items": "array — list of Sanction objects",
-      "nextCursor": "string|null — cursor for the next page, null when no more pages"
+      "items": "array of objects",
+      "items[]._id": "string",
+      "items[].targetUser": "string",
+      "items[].data": "object",
+      "items[].data.type": "string",
+      "items[].data.reason": "string",
+      "items[].createdAt": "string",
+      "items[].updatedAt": "string",
+      "items[].__v": "number",
+      "nextCursor": "string"
     }
   },
-  "notes": "Sanction object contains: data (object with type e.g. 'BAN' and reason string), plus other metadata fields. The direction parameter controls cursor traversal order."
+  "notes": "No countryId filter — the API does not support filtering sanctions by country.",
+  "exampleRequest": {
+    "limit": 2
+  },
+  "exampleResult": {
+    "items": [
+      {
+        "_id": "<sanctionId>",
+        "targetUser": "<targetUser>",
+        "data": {
+          "type": "UNBAN",
+          "reason": "Reduced ban (Appeal)"
+        },
+        "createdAt": "<isoTimestamp>",
+        "updatedAt": "<isoTimestamp>",
+        "__v": 0
+      },
+      {
+        "_id": "<sanctionId>",
+        "targetUser": "<targetUser>",
+        "data": {
+          "type": "MUTE_USER",
+          "durationInDays": 7,
+          "unMuteAt": "<isoTimestamp>",
+          "reason": "Racism."
+        },
+        "createdAt": "<isoTimestamp>",
+        "updatedAt": "<isoTimestamp>",
+        "__v": 0
+      }
+    ],
+    "nextCursor": "NEXTCURSOR"
+  }
 }

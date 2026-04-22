@@ -3,30 +3,49 @@
   "namespace": "user",
   "method": "getUsersByCountry",
   "auth": "optional",
-  "description": "Returns a paginated list of users belonging to a specific country.",
+  "description": "Returns a paginated list of users in a given country.",
   "input": {
     "countryId": {
       "type": "string",
       "required": true,
-      "description": "Unique identifier of the country."
-    },
-    "cursor": {
-      "type": "string",
-      "required": false,
-      "description": "Pagination cursor returned by the previous response."
+      "description": "Country ID."
     },
     "limit": {
       "type": "number",
       "required": false,
-      "description": "Maximum number of users to return."
+      "description": "Max results."
+    },
+    "cursor": {
+      "type": "string",
+      "required": false,
+      "description": "Pagination cursor."
     }
   },
   "output": {
-    "description": "Paginated list of lite user profiles for users in the specified country.",
+    "description": "See exampleResult for full structure.",
     "fields": {
-      "items": "array — list of getUserLite-shaped user objects",
-      "nextCursor": "string|null — cursor for the next page, null when no more pages"
+      "items": "array of objects",
+      "items[]._id": "string",
+      "items[].createdAt": "string",
+      "nextCursor": "string"
     }
   },
-  "notes": "Each item in items has the same shape as the response from user.getUserLite."
+  "notes": "Returns `items` array and `nextCursor` for pagination.",
+  "exampleRequest": {
+    "countryId": "<countryId>",
+    "limit": 2
+  },
+  "exampleResult": {
+    "items": [
+      {
+        "_id": "<userId>",
+        "createdAt": "<isoTimestamp>"
+      },
+      {
+        "_id": "<userId>",
+        "createdAt": "<isoTimestamp>"
+      }
+    ],
+    "nextCursor": "NEXTCURSOR"
+  }
 }

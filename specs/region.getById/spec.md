@@ -1,32 +1,110 @@
 # region.getById
 
-Returns a region object by its ID, including ownership, production, and development data.
+Returns full region data by region ID.
 
 ## Auth
-optional
+none
 
 ## Input
-| Parameter | Type | Required | Default | Description |
-|---|---|---|---|---|
-| regionId | string | yes | — | Unique identifier of the region |
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `regionId` | string | yes | Region ID. |
 
 ## Output
-Region object with ownership, production bonuses, deposits, and development info.
-
-### Fields
-- `_id` — string — region identifier
-- `name` — string — region name
-- `country` — string — countryId of the current owner
-- `productionBonuses` — object — production bonus values by resource type
-- `deposits` — object — deposit type and amount info
-- `occupationStatus` — object — occupation state if the region is under occupation
-- `developmentLevel` — number — current development level
-- `taxRate` — number — current tax rate for the region
-
-## Notes
-A region may be occupied by a country different from its original owner; check `occupationStatus` for details.
+- `stats` — object
+- `stats.investedMoney` — number
+- `dates` — object
+- `dates.lastOwnershipChangeAt` — string
+- `_id` — string
+- `code` — string
+- `country` — string
+- `initialCountry` — string
+- `neighbors` — array of strings
+- `isCapital` — boolean
+- `isLinkedToCapital` — boolean
+- `upgradesV2` — object
+- `upgradesV2.upgrades` — object
+- `upgradesV2.upgrades.base` — object
+- `upgradesV2.activeConstructionCount` — number
+- `name` — string
+- `mainCity` — string
+- `development` — number
+- `baseDevelopment` — number
+- `countryCode` — string
+- `position` — array
+- `biome` — string
+- `climate` — string
+- `__v` — number
+- `resistance` — number
+- `activeUpgradeLevels` — object
+- `activeUpgradeLevels.bunker` — number
+- `resistanceMax` — number
+- `lastResistanceContributionAt` — string
+- `lastRevoltEndedAt` — string
+- `lastBattleEndedAt` — string
 
 ## Example request
 ```
-GET https://api2.warera.io/trpc/region.getById?input={"regionId":"abc123"}
+GET https://api2.warera.io/trpc/region.getById?input={"regionId": "<regionId>"}
 ```
+
+## Example result
+```json
+{
+  "stats": {
+    "investedMoney": 0
+  },
+  "dates": {
+    "lastOwnershipChangeAt": "<isoTimestamp>"
+  },
+  "_id": "<regionId>",
+  "code": "ch-zurich",
+  "country": "<country>",
+  "initialCountry": "<initialCountry>",
+  "neighbors": [
+    "<neighborId>",
+    "<neighborId>"
+  ],
+  "isCapital": false,
+  "isLinkedToCapital": true,
+  "upgradesV2": {
+    "upgrades": {
+      "base": {
+        "level": 2,
+        "constructionPoints": 0,
+        "investedMoney": 300,
+        "constructionStartedAt": "<isoTimestamp>",
+        "isUnderConstruction": null,
+        "lastConstructions": [],
+        "status": "disabled",
+        "constructionEndedAt": "<isoTimestamp>",
+        "statusChangedAt": "<isoTimestamp>"
+      }
+    },
+    "activeConstructionCount": 0
+  },
+  "name": "NAME",
+  "mainCity": "Zurich",
+  "development": 7.95,
+  "baseDevelopment": 7.95,
+  "countryCode": "ch",
+  "position": [
+    8.5417,
+    47.3769
+  ],
+  "biome": "forest",
+  "climate": "moderate",
+  "__v": 29,
+  "resistance": 795,
+  "activeUpgradeLevels": {
+    "bunker": 2
+  },
+  "resistanceMax": 795,
+  "lastResistanceContributionAt": "<isoTimestamp>",
+  "lastRevoltEndedAt": "<isoTimestamp>",
+  "lastBattleEndedAt": "<isoTimestamp>"
+}
+```
+
+## Notes
+Actual output fields differ significantly from the original spec. See Example result for real schema.

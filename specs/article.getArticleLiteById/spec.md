@@ -1,34 +1,50 @@
 # article.getArticleLiteById
 
-Returns the full raw article object including all internal metadata and vote data by article ID.
+Returns a lightweight article object by ID, including internal vote/like data.
 
 ## Auth
-optional
+none
 
 ## Input
-| Parameter | Type | Required | Default | Description |
-|---|---|---|---|---|
-| articleId | string | yes | — | Unique identifier of the article |
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `articleId` | string | yes | Article ID. |
 
 ## Output
-Full raw article object including internal metadata fields not exposed by `getArticleById`.
-
-### Fields
-- `_id` — string — article identifier
-- `title` — string — article title
-- `content` — string — full article body
-- `author` — string — userId of the author
-- `publishedAt` — string — ISO 8601 publication timestamp
-- `createdAt` — string — ISO 8601 creation timestamp
-- `language` — string — ISO 639-1 language code
-- `category` — string — article category
-- `votes` — object — raw vote data
-- `meta` — object — internal metadata fields
-
-## Notes
-Returns the raw server-side document including internal metadata that `getArticleById` omits. Useful when the complete data model is needed rather than the public-facing view.
+- `_id` — string
+- `title` — string
+- `stats` — object
+- `stats.likes` — number
+- `stats.dislikes` — number
+- `stats.score` — number
+- `stats.views` — number
+- `stats.comments` — number
+- `stats.subs` — number
+- `stats.tips` — number
+- `stats.gemTips` — number
 
 ## Example request
 ```
-GET https://api2.warera.io/trpc/article.getArticleLiteById?input={"articleId":"abc123"}
+GET https://api2.warera.io/trpc/article.getArticleLiteById?input={"articleId": "<articleId>"}
 ```
+
+## Example result
+```json
+{
+  "_id": "<articleId>",
+  "title": "TITLE",
+  "stats": {
+    "likes": 0,
+    "dislikes": 1,
+    "score": -1,
+    "views": 5,
+    "comments": 0,
+    "subs": 0,
+    "tips": 0,
+    "gemTips": 0
+  }
+}
+```
+
+## Notes
+Lighter payload than getArticleById but exposes internal fields.
