@@ -40,6 +40,7 @@ Found an undocumented endpoint or a field that's wrong? PRs are welcome on [GitH
 ## Support
 
 If this documentation has been useful to you, consider supporting its development.
+
 | platform | address |
 |---|---|
 | saweria | saweria.co/gdsst |
